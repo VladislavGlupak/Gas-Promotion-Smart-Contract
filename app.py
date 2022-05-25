@@ -69,9 +69,9 @@ with st.sidebar:
     st.markdown("---")
 
     st.markdown("### Set rewards")
-    rate1 = int(st.number_input('Reg', min_value=0, max_value=10, value=0, step=1))
-    rate2 = int(st.number_input('Mid', min_value=0, max_value=10, value=0, step=1))
-    rate3 = int(st.number_input('Pre', min_value=0, max_value=10, value=0, step=1))
+    rate1 = int(st.number_input('Reg', min_value=0, max_value=10, value=1, step=1))
+    rate2 = int(st.number_input('Mid', min_value=0, max_value=10, value=2, step=1))
+    rate3 = int(st.number_input('Pre', min_value=0, max_value=10, value=3, step=1))
     if st.button("Set rewards rate"):
         contract.functions.setRate(rate1, rate2, rate3).transact({
         "from": address,
