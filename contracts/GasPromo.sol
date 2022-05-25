@@ -1,56 +1,69 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.6.6;
+pragma experimental ABIEncoderV2;
 
-import "OpenZeppelin/openzeppelin-contracts@3.0.0//contracts/token/ERC721/ERC721.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v3.0.0/contracts/token/ERC721/ERC721.sol";
 
+// This is a contract which represents promotion "Buy gas - get rewards (token GPT) and unique NFT"
 contract GasPromo is ERC721 {
-
+    // in order to avoid Math issues, contract uses OpenZeppelin SafeMath contract
     using SafeMath for uint;
 
+    // define variables
     address payable owner = msg.sender;
     uint256 public minGallons;
     bool public stopPromo;
     string public fullTokenName = "Gas Promo Token";
-    string public gasToken = "GPT";
+    string public gasToken = "GPT"; // Gas Promo Token - short name
     bool public isJoined = false;
+    bool public alreadyJoined = false;
     uint256 public nftPrice;
+    string[] public uris;
+    uint256[] public tokens;
 
+    // define struct of needed information for future NFT
     struct gasNft {
         address ownerNft;
         uint256 nftRate;
     }
-
+    // define types of the gas
     enum GasTypeRate { 
         REGULAR, 
         MIDDLE, 
         PREMIUM }
     
-    address[] public clients;
-    mapping(address => uint) public balances;
-    mapping(GasTypeRate => uint256) public rates;
-    mapping(uint256 => gasNft) public nftCollection;
 
+    address[] public clients; // array for tracking clients and for resetting balances when stopping promotion
+    mapping(address => uint) public balances; // maping for tracking balances
+    mapping(GasTypeRate => uint256) public rates; // mapping for tracking rewards exchange rates
+    mapping(uint256 => gasNft) public nftCollection; // mapping for tracking NFTs
+    mapping(uint256 => mapping(address => string)) public nftCollection2;
+
+    // initialize default values for several variables when contracts deployed
     constructor() ERC721(fullTokenName, gasToken) public {
-        minGallons = 5;
-        balances[owner] = 10000000;
-        stopPromo = false;
-        nftPrice = 500;
+        minGallons = 5;             // min number gallosfor buying
+        balances[owner] = 10000000; // initial token balance for minting
+        stopPromo = false;          // promo is on
+        nftPrice = 500;             // price of NFT in reward tokens
         rates[GasTypeRate.REGULAR] = 1;
         rates[GasTypeRate.MIDDLE] = 2;
         rates[GasTypeRate.PREMIUM] = 3;
     }
 
+    // only owner of the contract
     modifier onlyOwner() {
-        require(msg.sender == owner, "Only contract owner can mint tokens!!!");
+        require(msg.sender == owner, "Only contract owner can perform that procedure!!!");
         _;
     }
 
+    // checking that promotion is still running
     modifier stopPromoFalse() {
         require(stopPromo == false, "Promotion is stopped.");
         _;
     }
 
+    // checking that client joined the promotion (checking clients array)
     modifier joinedPromo() {
         for (uint256 i = 0; i < clients.length; i++){
                 if (msg.sender == clients[i]) {
@@ -61,81 +74,114 @@ contract GasPromo is ERC721 {
         _;
     }
 
-    event boughtGas(address buyer, uint256 amount);
-    event genNft(uint256 tokenId, uint256 amount);
+        modifier isNewClient() {
+        for (uint256 i = 0; i < clients.length; i++){
+                if (msg.sender == clients[i]) {
+                    alreadyJoined = true;
+                }
+        }
+        require(alreadyJoined == false, "You are already registered!");
+        _;
+    }
 
-    function enterPromo() public stopPromoFalse {
+    // define events forlogging buying the gas and creating NFT
+    event boughtGas(address buyer, uint256 amount); // gas
+    event genNft(uint256 tokenId, uint256 amount);  // NFT
+
+    // define fuction for joining the promotion
+    function enterPromo() public stopPromoFalse isNewClient {
+        require(msg.sender != owner, "Only clients can enter the promo!");
         clients.push(msg.sender);
     }
 
+    // define function for changing exchange rate gas=>rewards
     function setRate(uint256 rate_gas1, uint256 rate_gas2, uint256 rate_gas3) public {
         rates[GasTypeRate.REGULAR] = rate_gas1;
         rates[GasTypeRate.MIDDLE] = rate_gas2;
         rates[GasTypeRate.PREMIUM] = rate_gas3;
     }
 
-    function changeRate(uint256 newRate, GasTypeRate gas) view public {
-        rates[gas] == newRate;
-    }
-
+    // define function for checking exchange rate gas=>rewards
+    // need to provide number "gas": 0-regular, 1-middle, 2-premium
     function getRate(GasTypeRate gas) public view returns (uint256){
         return rates[gas];
     }
 
+    // define funcdtion for buying gas
     function buyGas(uint256 numberGallons, GasTypeRate gas) public payable stopPromoFalse joinedPromo {
 
-        uint256 amount = numberGallons * rates[gas];
+        uint256 amount = numberGallons * rates[gas]; // amount of rewards
 
-        require(numberGallons >= minGallons, "Promo requires to buy at least 5 gallons!");
-        require(amount <= balances[owner], "Sorry! Tokens are out!");
+        require(numberGallons >= minGallons, "Promo requires to buy at least 5 gallons!"); // min 5 gallong
+        require(amount <= balances[owner], "Sorry! Tokens are out!"); // checking that tokens are still available
 
-        balances[msg.sender] = balances[msg.sender].add(amount);
-        balances[owner] = balances[owner].sub(amount); 
+        balances[msg.sender] = balances[msg.sender].add(amount); // update client balance
+        balances[owner] = balances[owner].sub(amount); // update owner balance
 
-        isJoined = false;  
+        isJoined = false; // update to make possible check next client
 
-        emit boughtGas(msg.sender, amount);     
+        emit boughtGas(msg.sender, amount); // register the event    
     }
 
-    function getBalance() public view returns (uint) {
-        return balances[msg.sender];
-    }
-
+    // define function for minting additional tokens
     function mint(uint value) public onlyOwner {
         balances[owner] += value;
     }
 
+    // contract owner is able to stop promotion (false => true)
     function stopPromotion(bool _stopPromo) public onlyOwner returns (bool){
         stopPromo = _stopPromo;
 
+        // reset client's balances
         for (uint256 i = 0; i < clients.length; i++){
             address client = clients[i];
             balances[client] = 0;
         }
-        clients = new address[](0);
+        clients = new address[](0); // resetting clients array
 
-        return stopPromo;
+        return stopPromo; // true
     }
 
-    function mintNft(string memory tokenURI) public returns (uint256) {
+    // minting NFT
+    function mintNft(string memory tokenURI) public joinedPromo returns (uint256) {
         require(balances[msg.sender] >= nftPrice, "You balance is not enougth for generating NFT!");
 
         uint256 tokenId = totalSupply();
         address ownerNft = msg.sender;
 
-        balances[ownerNft] = balances[ownerNft].sub(nftPrice);
+        balances[ownerNft] = balances[ownerNft].sub(nftPrice); // update client balance
 
-        _mint(ownerNft, tokenId);
-        _setTokenURI(tokenId, tokenURI);
+        _mint(ownerNft, tokenId); // tokenID to msg.sender
+        _setTokenURI(tokenId, tokenURI); // assing tokenURI to tokenId
 
-        nftCollection[tokenId] = gasNft(ownerNft, nftPrice);
-
-        emit genNft(tokenId, nftPrice);
+        nftCollection2[tokenId][msg.sender] = tokenURI;
+        tokens.push(tokenId); //
+        emit genNft(tokenId, nftPrice); // register the event
 
         return tokenId;
     }
 
-    function setNftPrice(uint256 _newNftPrice) public {
+    // define function for changing NFT exchange rate (500 when contract initialized)
+    function setNftPrice(uint256 _newNftPrice) public onlyOwner {
         nftPrice = _newNftPrice;
+    }
+
+    // perform search of the address => nft and save results to the uris array
+    function getNftUri() public {
+        delete uris; // we neeed to reset array before each search
+        for (uint256 i = 0; i < tokens.length; i++){
+            uint256 t = tokens[i];
+            for (uint256 j = 0; j < clients.length; j++){
+                address client = clients[j];
+                if (client == msg.sender){
+                    uris.push(nftCollection2[t][client]);
+                }
+            }
+        }
+    }
+
+    // get array of nfts
+    function getUri() public view returns (string[] memory){
+        return uris;
     }
 }
