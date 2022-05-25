@@ -101,6 +101,10 @@ with st.sidebar:
         "gas": 1000000
         })
         st.markdown("### Done!")
+    if st.button("Current state"):
+        state = contract.functions.stopPromo().call()
+        st.markdown(f"Promotion is stopped: {state}")
+
 
 st.image("./Pictures/main.jpg")
 st.markdown("---")

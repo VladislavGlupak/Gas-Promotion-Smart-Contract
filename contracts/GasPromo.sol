@@ -37,8 +37,7 @@ contract GasPromo is ERC721 {
     address[] public clients; // array for tracking clients and for resetting balances when stopping promotion
     mapping(address => uint) public balances; // maping for tracking balances
     mapping(GasTypeRate => uint256) public rates; // mapping for tracking rewards exchange rates
-    mapping(uint256 => gasNft) public nftCollection; // mapping for tracking NFTs
-    mapping(uint256 => mapping(address => string)) public nftCollection2;
+    mapping(uint256 => mapping(address => string)) public nftCollection; // mapping for tracking NFTs
 
     // initialize default values for several variables when contracts deployed
     constructor() ERC721(fullTokenName, gasToken) public {
@@ -154,7 +153,7 @@ contract GasPromo is ERC721 {
         _mint(ownerNft, tokenId); // tokenID to msg.sender
         _setTokenURI(tokenId, tokenURI); // assing tokenURI to tokenId
 
-        nftCollection2[tokenId][msg.sender] = tokenURI;
+        nftCollection[tokenId][msg.sender] = tokenURI;
         tokens.push(tokenId); //
         emit genNft(tokenId, nftPrice); // register the event
 
@@ -174,7 +173,7 @@ contract GasPromo is ERC721 {
             for (uint256 j = 0; j < clients.length; j++){
                 address client = clients[j];
                 if (client == msg.sender){
-                    uris.push(nftCollection2[t][client]);
+                    uris.push(nftCollection[t][client]);
                 }
             }
         }
