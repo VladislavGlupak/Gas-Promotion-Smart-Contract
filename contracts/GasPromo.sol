@@ -183,4 +183,13 @@ contract GasPromo is ERC721 {
     function getUri() public view returns (string[] memory){
         return uris;
     }
+    
+    // donate to ...
+    function donate(uint256 amount) public payable {
+        require(amount <= balances[msg.sender], "Please, check your balance!");
+        address payable receiver = 0x6EF43f60F7ea71681f16E90dF4b180deC1D5d359; // dummy address
+        uint256 wei_amount = amount / 10**18; // 1 token = 1 wei
+        balances[msg.sender] = balances[msg.sender].sub(amount);
+        receiver.transfer(wei_amount);
+    }
 }

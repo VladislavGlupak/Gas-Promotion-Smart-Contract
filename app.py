@@ -172,10 +172,22 @@ st.markdown("---")
 
 ################################################################################
 # Customer panel
-# 3. Get NFT
+# 3. Donate
 ################################################################################
 
-st.markdown("### Create NFT")
+st.markdown("### Do you want to donate your tokens?")
+st.image("./Pictures/donate.png")
+donate_amount = int(st.number_input('How much do you want to donate?', min_value=0, max_value=None, value=50, step=1))
+if st.button("Donate"):
+    contract.functions.donate(100).transact({"from": address, "gas": 1000000})
+st.markdown("---")
+
+################################################################################
+# Customer panel
+# 4. Get NFT
+################################################################################
+
+st.markdown("### Paint NFT")
 
 if st.button("Get it!"):
     # retrive balance of the customer
@@ -204,7 +216,7 @@ st.markdown("---")
 
 ################################################################################
 # Customer panel
-# 4. Retrive customer's NFT
+# 5. Retrive customer's NFT
 ################################################################################
 
 if st.button("See my NFTs"):
