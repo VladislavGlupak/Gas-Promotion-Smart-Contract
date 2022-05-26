@@ -9,17 +9,16 @@ from pathlib import Path
 from infura import send_to_ipfs
 from random_pic import generateImage
 
+# load veriables from the .env
 load_dotenv()
 
+################################################################################
 # Define and connect a new Web3 provider
+################################################################################
+
 w3 = Web3(Web3.HTTPProvider(os.getenv("WEB3_PROVIDER_URI")))
 
-################################################################################
-# Contract Helper function:
-
-################################################################################
-
-
+# we need to use st.cache for keep contract in the cache
 @st.cache(allow_output_mutation=True)
 def load_contract():
 
@@ -42,24 +41,33 @@ def load_contract():
 contract = load_contract()
 
 ################################################################################
-
+# Administrator panel
+# 1. List of accounts
 ################################################################################
 
 with st.sidebar:
-    st.image("./Pictures/gas_st.gif")
+    st.image("./Pictures/gas_st.gif") # load design picture
     st.write("Choose an account to get started")
-    accounts = w3.eth.accounts
-    owner = w3.eth.accounts[0]
+    accounts = w3.eth.accounts # retrive accounts from the blockchain
+    owner = w3.eth.accounts[0] # contract owner 0 in the list
     address = st.selectbox("Select Account", options=accounts)
     st.markdown("---")
+
+################################################################################
+# Administrator panel
+# 2. Mint tokens
+################################################################################
+
     st.markdown("# Admin panel")
 
-    total = contract.functions.balances(owner).call()
+    total = contract.functions.balances(owner).call() # contract owner balance
+    # define button for displaying the contract owner's balance
     if st.button("Check owner balance"):
         st.write(f"### Balance of the tokens: {total}")
 
     st.markdown("### Mint tokens")
-    number_of_tokens = int(st.number_input('', min_value=0, max_value=None, value=1000000, step=500))
+    number_of_tokens = int(st.number_input('', min_value=0, max_value=None, value=1000000, step=500)) # number of tokens to mint
+    # define button for minting new tokens
     if st.button("Mint"):
         contract.functions.mint(number_of_tokens).transact({
         "from": address,
@@ -68,10 +76,17 @@ with st.sidebar:
         st.markdown("### Done!")
     st.markdown("---")
 
+################################################################################
+# Administrator panel
+# 3. Set rewards exchange rate
+################################################################################
+
     st.markdown("### Set rewards")
+    # set rewards rate for gas types
     rate1 = int(st.number_input('Reg', min_value=0, max_value=10, value=1, step=1))
     rate2 = int(st.number_input('Mid', min_value=0, max_value=10, value=2, step=1))
     rate3 = int(st.number_input('Pre', min_value=0, max_value=10, value=3, step=1))
+    # button - set rewards
     if st.button("Set rewards rate"):
         contract.functions.setRate(rate1, rate2, rate3).transact({
         "from": address,
@@ -79,6 +94,11 @@ with st.sidebar:
         })
         st.markdown("### Done!")
     st.markdown("---")
+
+################################################################################
+# Administrator panel
+# 4. Set NFT exchange rate
+################################################################################
 
     st.markdown("### Set NFT exchange rate")
     nft_rate = int(st.number_input('Reg', min_value=0, max_value=None, value=500, step=5))
@@ -93,6 +113,11 @@ with st.sidebar:
         st.write(f"### Current exchange rate: {cur_nft_rate}")
     st.markdown("---")
 
+################################################################################
+# Administrator panel
+# 5. Stop / Start promotion
+################################################################################
+
     st.markdown("### Stop/Start promotion")
     nft_rate = st.checkbox("Checked = stop / Unchecked = start", value=False)
     if st.button("Stop/Start"):
@@ -105,6 +130,10 @@ with st.sidebar:
         state = contract.functions.stopPromo().call()
         st.markdown(f"Promotion is stopped: {state}")
 
+################################################################################
+# Administrator panel
+# 6. Join promotion
+################################################################################
 
 st.image("./Pictures/main.jpg")
 st.markdown("---")
@@ -117,6 +146,11 @@ if st.button("Join", key=0):
 
     st.markdown("#### Great! You are now a member of the promotion!")
 st.markdown("---")
+
+################################################################################
+# Administrator panel
+# 7. Buy gas
+################################################################################
 
 st.markdown("### Do you want to buy some gas?")
 gas_choice = st.radio("What's your favorite gas?", ('Regular', 'Middle', 'Premium'))
@@ -146,6 +180,10 @@ if st.button("Buy", key=1):
         st.write(f"You can exchange them for NFT!")
 st.markdown("---")
 
+################################################################################
+# Administrator panel
+# 8. Get NFT
+################################################################################
 
 st.markdown("### Create NFT")
 
@@ -174,8 +212,12 @@ if st.button("Get it!"):
         st.write(a["transactionHash"])
     else:
         st.write("You don't have enougth token balance!")
-
 st.markdown("---")
+
+################################################################################
+# Administrator panel
+# 9. Retrive customer's NFT
+################################################################################
 
 if st.button("See my NFTs"):
     contract.functions.getNftUri().transact({
@@ -189,5 +231,4 @@ if st.button("See my NFTs"):
     else:
         for link in nft_list:
             st.write(link)
-
 st.markdown("---")
