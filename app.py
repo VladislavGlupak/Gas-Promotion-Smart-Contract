@@ -179,7 +179,8 @@ st.markdown("### Do you want to donate your tokens?")
 st.image("./Pictures/donate.png")
 donate_amount = int(st.number_input('How much do you want to donate?', min_value=0, max_value=None, value=50, step=1))
 if st.button("Donate"):
-    contract.functions.donate(100).transact({"from": address, "gas": 1000000})
+    contract.functions.donate(donate_amount).transact({"from": address, "gas": 1000000})
+    st.markdown("### Done! Thank you!")
 st.markdown("---")
 
 ################################################################################
