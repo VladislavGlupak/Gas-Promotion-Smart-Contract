@@ -211,6 +211,7 @@ if st.button("Start!"):
         a = dict(receipt)
         #st.write(dict(receipt))
         st.write(a["transactionHash"])
+        os.remove(file)
     else:
         st.write("You don't have enougth token balance!")
 st.markdown("---")
