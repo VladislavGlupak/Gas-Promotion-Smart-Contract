@@ -69,10 +69,7 @@ with st.sidebar:
     number_of_tokens = int(st.number_input('', min_value=0, max_value=None, value=1000000, step=500)) # number of tokens to mint
     # define button for minting new tokens
     if st.button("Mint"):
-        contract.functions.mint(number_of_tokens).transact({
-        "from": address,
-        "gas": 1000000
-        })
+        contract.functions.mint(number_of_tokens).transact({"from": address, "gas": 1000000})
         st.markdown("### Done!")
     st.markdown("---")
 
@@ -88,10 +85,7 @@ with st.sidebar:
     rate3 = int(st.number_input('Pre', min_value=0, max_value=10, value=3, step=1))
     # button - set rewards
     if st.button("Set rewards rate"):
-        contract.functions.setRate(rate1, rate2, rate3).transact({
-        "from": address,
-        "gas": 1000000
-        })
+        contract.functions.setRate(rate1, rate2, rate3).transact({"from": address, "gas": 1000000})
         st.markdown("### Done!")
     st.markdown("---")
 
@@ -101,13 +95,13 @@ with st.sidebar:
 ################################################################################
 
     st.markdown("### Set NFT exchange rate")
+    # define new rate for NFT
     nft_rate = int(st.number_input('Reg', min_value=0, max_value=None, value=500, step=5))
+    # set new NFT price
     if st.button("Set NFT price"):
-        contract.functions.setNftPrice(nft_rate).transact({
-        "from": address,
-        "gas": 1000000
-        })
+        contract.functions.setNftPrice(nft_rate).transact({"from": address, "gas": 1000000})
         st.markdown("### Done!")
+    # retrive current NFT rate
     if st.button("Current rate"):
         cur_nft_rate = contract.functions.nftPrice().call()
         st.write(f"### Current exchange rate: {cur_nft_rate}")
@@ -120,40 +114,38 @@ with st.sidebar:
 
     st.markdown("### Stop/Start promotion")
     nft_rate = st.checkbox("Checked = stop / Unchecked = start", value=False)
+    # stop/start promotion (True is stop, False is running)
     if st.button("Stop/Start"):
-        contract.functions.stopPromotion(nft_rate).transact({
-        "from": address,
-        "gas": 1000000
-        })
+        contract.functions.stopPromotion(nft_rate).transact({"from": address, "gas": 1000000})
         st.markdown("### Done!")
+    # get current promotion state
     if st.button("Current state"):
         state = contract.functions.stopPromo().call()
         st.markdown(f"Promotion is stopped: {state}")
 
 ################################################################################
-# Administrator panel
-# 6. Join promotion
+# Customer panel
+# 1. Join promotion
 ################################################################################
 
 st.image("./Pictures/main.jpg")
 st.markdown("---")
 st.markdown("### Do you want to join the promo?")
+# customer have to join the promotion
 if st.button("Join", key=0):
-    contract.functions.enterPromo().transact({
-        "from": address,
-        "gas": 1000000
-    })
+    contract.functions.enterPromo().transact({"from": address, "gas": 1000000})
 
     st.markdown("#### Great! You are now a member of the promotion!")
 st.markdown("---")
 
 ################################################################################
-# Administrator panel
-# 7. Buy gas
+# Customer panel
+# 2. Buy gas
 ################################################################################
 
 st.markdown("### Do you want to buy some gas?")
 gas_choice = st.radio("What's your favorite gas?", ('Regular', 'Middle', 'Premium'))
+# based on customer's choice, we get exchange rate from the mapping
 if gas_choice == "Regular":
     gas_code = 0
 if gas_choice == "Middle":
@@ -162,49 +154,45 @@ if gas_choice == "Premium":
     gas_code = 2
 number = int(st.number_input('Insert a number of gallons', min_value=0, max_value=None, value=5, step=1))
 
-
-token_name = contract.functions.symbol().call()
+# retrive customer's balance
 if st.button("My balance"):
     balance = contract.functions.balances(address).call()
-    st.write(f"{balance} {token_name} tokens")
+    st.write(f"You balance is {balance} rewards")
 nft_price = contract.functions.nftPrice().call()
+# buy gas
 if st.button("Buy", key=1):
-    contract.functions.buyGas(number, gas_code).transact({
-        "from": address,
-        "gas": 1000000
-    })
+    contract.functions.buyGas(number, gas_code).transact({"from": address, "gas": 1000000})
     balance = contract.functions.balances(address).call()
     st.markdown("#### Tokens have been minted!")
     st.write(f"You have collected tokens: {balance}.")
+    # check if customer is allowed to get NFT
     if (balance >= nft_price):
         st.write(f"You can exchange them for NFT!")
 st.markdown("---")
 
 ################################################################################
-# Administrator panel
-# 8. Get NFT
+# Customer panel
+# 3. Get NFT
 ################################################################################
 
 st.markdown("### Create NFT")
 
 if st.button("Get it!"):
+    # retrive balance of the customer
     balance = contract.functions.balances(address).call()
     if (balance >= nft_price):
         with st.spinner("Spill some oil... Don't worry nature is safe :)"):
-            file = generateImage()
+            file = generateImage() # call image generation script from random_pic.py
             st.image(file)
 
-        hash = send_to_ipfs(file)
+        hash = send_to_ipfs(file) # call Infura API
 
-        artwork_uri = f"https://infura-ipfs.io/ipfs/{hash}"
+        oil_spot = f"https://infura-ipfs.io/ipfs/{hash}"
 
-        tx_hash = contract.functions.mintNft(artwork_uri).transact({
-            "from": address,
-            "gas": 1000000
-        })
+        tx_hash = contract.functions.mintNft(oil_spot).transact({"from": address, "gas": 1000000})
         receipt = w3.eth.waitForTransactionReceipt(tx_hash)
         st.write("Here is your link:")
-        st.write(artwork_uri)
+        st.write(oil_spot) # print oil spot link
         st.write("")
         st.write("Transaction receipt mined:")
         a = dict(receipt)
@@ -215,15 +203,12 @@ if st.button("Get it!"):
 st.markdown("---")
 
 ################################################################################
-# Administrator panel
-# 9. Retrive customer's NFT
+# Customer panel
+# 4. Retrive customer's NFT
 ################################################################################
 
 if st.button("See my NFTs"):
-    contract.functions.getNftUri().transact({
-            "from": address,
-            "gas": 1000000
-        })
+    contract.functions.getNftUri().transact({"from": address, "gas": 1000000})
 
     nft_list = contract.functions.getUri().call()
     if (len(nft_list) == 0):
