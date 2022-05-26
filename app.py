@@ -190,7 +190,7 @@ st.markdown("---")
 
 st.markdown("### Paint NFT")
 
-if st.button("Get it!"):
+if st.button("Start!"):
     # retrive balance of the customer
     balance = contract.functions.balances(address).call()
     if (balance >= nft_price):
@@ -220,6 +220,7 @@ st.markdown("---")
 # 5. Retrive customer's NFT
 ################################################################################
 
+st.markdown("### Check my NFT collection")
 if st.button("See my NFTs"):
     contract.functions.getNftUri().transact({"from": address, "gas": 1000000})
 
