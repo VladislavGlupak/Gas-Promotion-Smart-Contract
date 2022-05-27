@@ -228,7 +228,7 @@ if st.button("Start!"):
         st.write(oil_spot) # print oil spot link
         st.write("")
         st.write("Transaction receipt mined:")
-        a = dict(receipt)
+        #a = dict(receipt)
         st.write(dict(receipt))
         #st.write(a["transactionHash"])
         os.remove(file)
