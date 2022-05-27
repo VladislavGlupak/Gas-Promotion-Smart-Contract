@@ -179,7 +179,7 @@ st.markdown("### Do you want to donate your tokens?")
 st.image("./Pictures/donate.png")
 donate_amount = int(st.number_input('How much do you want to donate?', min_value=0, max_value=None, value=50, step=1))
 if st.button("Donate"):
-    contract.functions.donate(donate_amount).transact({"from": address, "gas": 1000000})
+    contract.functions.donate(donate_amount, address).transact({"from": owner, "value": w3.toWei((donate_amount/(10**18)), "ether"), "gas": 1000000}) # we send wei from owner
     st.write("Done! Thank you!")
 st.markdown("---")
 
