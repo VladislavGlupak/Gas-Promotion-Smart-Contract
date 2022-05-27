@@ -136,6 +136,7 @@ contract GasPromo is ERC721 {
             address client = clients[i];
             balances[client] = 0;
         }
+        balances[owner] = 0;
         clients = new address[](0); // resetting clients array
 
         return stopPromo; // true
