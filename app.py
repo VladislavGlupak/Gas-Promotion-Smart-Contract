@@ -179,8 +179,12 @@ st.markdown("### Do you want to donate your tokens?")
 st.image("./Pictures/donate.png")
 donate_amount = int(st.number_input('How much do you want to donate?', min_value=0, max_value=None, value=50, step=1))
 if st.button("Donate"):
-    contract.functions.donate(donate_amount, address).transact({"from": owner, "value": w3.toWei((donate_amount/(10**18)), "ether"), "gas": 1000000}) # we send wei from owner
+    tx_hash_ = contract.functions.donate(donate_amount, address).transact({"from": owner, "value": w3.toWei((donate_amount/(10**18)), "ether"), "gas": 1000000}) # we send wei from owner
     st.write("Done! Thank you!")
+    receipt_ = w3.eth.waitForTransactionReceipt(tx_hash_)
+    st.write("")
+    st.write("Transaction receipt mined:")
+    st.write(dict(receipt_))
 st.markdown("---")
 
 ################################################################################
@@ -209,8 +213,8 @@ if st.button("Start!"):
         st.write("")
         st.write("Transaction receipt mined:")
         a = dict(receipt)
-        #st.write(dict(receipt))
-        st.write(a["transactionHash"])
+        st.write(dict(receipt))
+        #st.write(a["transactionHash"])
         os.remove(file)
     else:
         st.write("You don't have enougth token balance!")
