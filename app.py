@@ -83,10 +83,23 @@ with st.sidebar:
     rate1 = int(st.number_input('Reg', min_value=0, max_value=10, value=1, step=1))
     rate2 = int(st.number_input('Mid', min_value=0, max_value=10, value=2, step=1))
     rate3 = int(st.number_input('Pre', min_value=0, max_value=10, value=3, step=1))
+
     # button - set rewards
     if st.button("Set rewards rate"):
         contract.functions.setRate(rate1, rate2, rate3).transact({"from": address, "gas": 1000000})
         st.markdown("### Done!")
+
+    # checking current rewards rate
+    rate_check_code = st.selectbox('Check current rate', ('Regular', 'Middle', 'Premium'))
+    if rate_check_code == "Regular":
+        code = 0
+    if rate_check_code == "Middle":
+        code = 1
+    if rate_check_code == "Premium":
+        code = 2
+    if st.button("Current rewards rate"):
+        check_rate_result = contract.functions.getRate(code).call()
+        st.write(check_rate_result)
     st.markdown("---")
 
 ################################################################################
