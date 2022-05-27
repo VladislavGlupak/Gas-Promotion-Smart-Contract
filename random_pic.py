@@ -2,6 +2,11 @@ from randimage import get_random_image
 import matplotlib
 import random
 
+################################################################################
+# Script for generation of random pictures
+# https://github.com/nareto/randimage
+################################################################################
+
 def generateImage():
     img_size = (256,256)
     img = get_random_image(img_size)  #returns numpy array

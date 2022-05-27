@@ -2,6 +2,10 @@ import os
 import requests
 from dotenv import load_dotenv
 
+################################################################################
+# Infura API
+################################################################################
+
 load_dotenv()
 
 projectId = os.getenv("INFURA_PROJECT_ID")
