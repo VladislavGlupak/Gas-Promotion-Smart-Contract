@@ -45,13 +45,19 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v3.0
 
 ## App flows
 
+TBD
+
 ---
 
 ## Installation
 
+TBD
+
 ---
 
 ## Demonstration
+
+TBD
 
 ---
 
