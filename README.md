@@ -29,7 +29,7 @@ This project leverages the following tools, API and libraries:
 
 - [Streamlit](https://streamlit.io) - is an open-source app framework for Machine Learning and Data Science teams.
 
-- [Web.py](https://web3py.readthedocs.io/en/stable/) - is a Python library for interacting with Ethereum.
+- [Web3.py](https://web3py.readthedocs.io/en/stable/) - is a Python library for interacting with Ethereum.
 
 - [OpenZepplelin - ERC721](https://docs.openzeppelin.com/contracts/2.x/api/token/erc721) - set of interfaces, contracts, and utilities are all related to the ERC721 Non-Fungible Token Standard.
 
