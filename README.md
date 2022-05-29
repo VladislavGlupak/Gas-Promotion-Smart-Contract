@@ -80,8 +80,6 @@ Siddharth Venkumahanti [Linkedin](https://www.linkedin.com/in/vladislav-glupak/)
 [forks-url]: https://github.com/VladislavGlupak/Gas-Promotion-Smart-Contract/network/members
 [stars-shield]: https://img.shields.io/github/stars/VladislavGlupak/Gas-Promotion-Smart-Contract.svg?style=for-the-badge
 [stars-url]: https://github.com/VladislavGlupak/Gas-Promotion-Smart-Contract/stargazers
-[issues-shield]: https://img.shields.io/github/issues/VladislavGlupak/Gas-Promotion-Smart-Contract/network/members?style=for-the-badge
-[issues-url]: https://github.com/VladislavGlupak/Gas-Promotion-Smart-Contract/issues
 
 ## License
 
