@@ -6,7 +6,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 
-![Screenshot](Pictures/main.JPG)
+![Main](Pictures/main.jpg)
 
 # Gas-Promotion-Smart-Contract
 
