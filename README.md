@@ -8,13 +8,16 @@
 
 # Gas-Promotion-Smart-Contract
 
+This repository represents the project is that gas station customers can join a promotion where they can earn tokens by buying gasoline (regular - 1, premium - 3, etc.). Tokens can be accumulated, or they can be exchanged for a special NFT (there will be an exchange rate) - "Oil stains" or donated. NFT will be kept in the ITFS network - Infura.
+The administrator can manage the promotion (change exchange rates, stop promotion etc).
+
 ---
 
 ## Technologies
 
 This project leverages the following tools for financial analysis:
 
-- [Solidity](https://docs.soliditylang.org/en/v0.8.13/) - programming language for implementing smart contracts.
+- [Solidity ^0.6.6](https://docs.soliditylang.org/en/v0.8.13/) - programming language for implementing smart contracts.
 
 - [Remix IDE](https://remix.ethereum.org) - Remix IDE allows developing, deploying and administering smart contracts for Ethereum like blockchains.
 
@@ -28,12 +31,7 @@ This project leverages the following tools for financial analysis:
 
 - [Web.py](https://web3py.readthedocs.io/en/stable/) - is a Python library for interacting with Ethereum.
 
-Solidity version:
-
-```
-pragma solidity ^0.6.6
-pragma experimental ABIEncoderV2;
-```
+- [OpenZepplelin - ERC721](https://docs.openzeppelin.com/contracts/2.x/api/token/erc721) - set of interfaces, contracts, and utilities are all related to the ERC721 Non-Fungible Token Standard.
 
 OpenZeppelin libraries:
 
