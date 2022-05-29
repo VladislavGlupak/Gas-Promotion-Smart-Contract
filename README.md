@@ -15,7 +15,7 @@ The administrator can manage the promotion (change exchange rates, stop promotio
 
 ## Technologies
 
-This project leverages the following tools for financial analysis:
+This project leverages the following tools, API and libraries:
 
 - [Solidity ^0.6.6](https://docs.soliditylang.org/en/v0.8.13/) - programming language for implementing smart contracts.
 
