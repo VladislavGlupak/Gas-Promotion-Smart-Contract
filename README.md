@@ -6,6 +6,8 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 
+![Screenshot](Pictures/main.JPG)
+
 # Gas-Promotion-Smart-Contract
 
 This repository represents the project is that gas station customers can join a promotion where they can earn tokens by buying gasoline (regular - 1, premium - 3, etc.). Tokens can be accumulated, or they can be exchanged for a special NFT (there will be an exchange rate) - "Oil stains" or donated. NFT will be kept in the ITFS network - Infura.
