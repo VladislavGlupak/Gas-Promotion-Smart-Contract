@@ -57,7 +57,7 @@ TBD
 
 ---
 
-## Demonstration
+## Demonstration of functionality
 
 TBD
 
