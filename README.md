@@ -51,6 +51,22 @@ TBD
 
 ---
 
+## Project structure
+
+```
+contracts/GasPromo.sol           - smart contract
+contracts/compiled/compiled.json - ABI
+Pictures                         - different pictures
+infura.py                        - Infura API IPFS
+random_pic.py                    - script for generating pictures
+app.py                           - the main application that connects all the components together
+SAMPLE.env                       - file contains description of important variables
+LICENSE                          - MIT license
+run.sh                           - bash scriptfor running app
+```
+
+---
+
 ## Installation
 
 1. Download and install [Metamask](https://metamask.io) crypto wallet.
