@@ -18,10 +18,10 @@ The administrator manages the promotion.
 # Table of Contents
 
 - [Technologies and tools](#technologies-and-tools)
-- [App flows](#app-flows)
+- [App flows -TBD](#app-flows)
 - [Project structure](#project-structure)
 - [Installation](#installation)
-- [Demonstration of functionality](#demonstration-of-functionality)
+- [Demonstration of functionality - TBD](#demonstration-of-functionality)
 - [Troubleshooting](#troubleshooting)
 - [Contributors](#contributors)
 - [License](#license)
