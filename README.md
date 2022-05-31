@@ -68,7 +68,7 @@ TBD
 
 5. Copy smart contract (`contracts/GasPromo.sol`) to the [Remix IDE](https://remix.ethereum.org).
 
-6. Compile (`compiler 0.6.12`), select `Injected Web3` as an environment and deploy the smart contract to the Ganache network.
+6. Compile (`compiler 0.6.12`), select `Injected Web3` as an environment and deploy the smart contract (confirm with the Metamask) to the Ganache network.
 
 ![Deploy](Pictures/screenshots/deploy.JPG)
 
