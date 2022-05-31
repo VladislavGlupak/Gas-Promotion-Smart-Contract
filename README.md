@@ -15,6 +15,20 @@ The administrator manages the promotion.
 
 ---
 
+# Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Technologies and tools](#technologies-and-tools)
+- [App flows](#app-flows)
+- [Project structure](#project-structure)
+- [Installation](#installation)
+- [Demonstration of functionality](#demonstration-of-functionality)
+- [Troubleshooting](#troubleshooting)
+- [Contributors](#contributors)
+- [License](#license)
+
+---
+
 ## Technologies and tools
 
 This project leverages the following tools, API and libraries:
