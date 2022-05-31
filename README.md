@@ -17,7 +17,6 @@ The administrator manages the promotion.
 
 # Table of Contents
 
-- [Table of Contents](#table-of-contents)
 - [Technologies and tools](#technologies-and-tools)
 - [App flows](#app-flows)
 - [Project structure](#project-structure)
