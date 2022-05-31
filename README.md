@@ -53,7 +53,41 @@ TBD
 
 ## Installation
 
-TBD
+1. Download and install [Metamask](https://metamask.io) crypto wallet.
+
+2. Donload and install [Ganache](https://trufflesuite.com/ganache/).
+
+3. Configure the Ganache network in the Metamask.
+   ```
+   Network name: Ganache
+   RPC: http://127.0.0.1:7545
+   Chain ID: 1337
+   Currency symbol: ETH
+   ```
+4. Import any account to the Metamask from the Ganache.
+
+5. Copy smart contract (`contracts/GasPromo.sol`) to the [Remix IDE](https://remix.ethereum.org).
+
+6. Compile, select `Injected Web3` as an environment and deploy the smart contract to the Ganache network.
+
+![Deploy](Pictures/screenshots/deploy.JPG)
+
+7. Fill out the `SAMPLE.env`:
+
+   - provide `Infura` secret keys (you need to be registered here `https://infura.io`);
+
+   - provide address of the deployed smart contract.
+
+   ```
+   INFURA_PROJECT_ID=<your infura project id>
+   INFURA_PROJECT_SECRET=<your infura project secret key>
+   WEB3_PROVIDER_URI=http://127.0.0.1:7545
+   SMART_CONTRACT_ADDRESS=<deployed smart contract>
+   ```
+
+8. [Install](https://docs.streamlit.io/library/get-started/installation) Streamlit `pip install streamlit`.
+
+9. Run `./run.sh`
 
 ---
 
