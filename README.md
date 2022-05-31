@@ -62,7 +62,7 @@ random_pic.py                    - script for generating pictures
 app.py                           - the main application that connects all the components together
 SAMPLE.env                       - file contains description of important variables
 LICENSE                          - MIT license
-run.sh                           - bash scriptfor running app
+run.sh                           - bash script for running app
 ```
 
 ---
