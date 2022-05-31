@@ -113,6 +113,16 @@ TBD
 
 ---
 
+## Troubleshooting
+
+**AttributeError: module ‘click’ has no attribute ‘get_os_args’**
+
+Please install:
+
+`pip install -U click==8`
+
+---
+
 ## Contributors
 
 Glupak Vladislav [Linkedin](https://www.linkedin.com/in/vladislav-glupak/)
