@@ -15,7 +15,7 @@ The administrator manages the promotion.
 
 ---
 
-## Technologies
+## Technologies and tools
 
 This project leverages the following tools, API and libraries:
 
