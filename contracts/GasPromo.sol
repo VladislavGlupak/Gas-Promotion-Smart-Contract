@@ -20,7 +20,7 @@ contract GasPromo is ERC721 {
     bool public alreadyJoined = false;
     uint256 public nftPrice;
     string[] public uris;
-    uint256[] public tokens;
+    uint256[] public points;
 
     // define struct of needed information for future NFT
     struct gasNft {
@@ -44,7 +44,7 @@ contract GasPromo is ERC721 {
         minGallons = 5;             // min number gallosfor buying
         balances[owner] = 10000000; // initial token balance for minting
         stopPromo = false;          // promo is on
-        nftPrice = 500;             // price of NFT in reward tokens
+        nftPrice = 500;             // price of NFT in reward points
         rates[GasTypeRate.REGULAR] = 1;
         rates[GasTypeRate.MIDDLE] = 2;
         rates[GasTypeRate.PREMIUM] = 3;
@@ -112,7 +112,7 @@ contract GasPromo is ERC721 {
         uint256 amount = numberGallons * rates[gas]; // amount of rewards
 
         require(numberGallons >= minGallons, "Promo requires to buy at least 5 gallons!"); // min 5 gallong
-        require(amount <= balances[owner], "Sorry! Tokens are out!"); // checking that tokens are still available
+        require(amount <= balances[owner], "Sorry! Points are out!"); // checking that points are still available
 
         balances[msg.sender] = balances[msg.sender].add(amount); // update client balance
         balances[owner] = balances[owner].sub(amount); // update owner balance
@@ -122,8 +122,8 @@ contract GasPromo is ERC721 {
         emit boughtGas(msg.sender, amount); // register the event    
     }
 
-    // define function for minting additional tokens
-    function mint(uint value) public onlyOwner {
+    // define function for minting additional points
+    function mint(uint value) public onlyOwner stopPromoFalse {
         balances[owner] += value;
     }
 
@@ -155,7 +155,7 @@ contract GasPromo is ERC721 {
         _setTokenURI(tokenId, tokenURI); // assing tokenURI to tokenId
 
         nftCollection[tokenId][msg.sender] = tokenURI;
-        tokens.push(tokenId); //
+        points.push(tokenId); //
         emit genNft(tokenId, nftPrice); // register the event
 
         return tokenId;
@@ -167,21 +167,17 @@ contract GasPromo is ERC721 {
     }
 
     // perform search of the address => nft and save results to the uris array
-    function getNftUri() public {
+    function createNftUriList() public {
         delete uris; // we neeed to reset array before each search
-        for (uint256 i = 0; i < tokens.length; i++){
-            uint256 t = tokens[i];
-            for (uint256 j = 0; j < clients.length; j++){
-                address client = clients[j];
-                if (client == msg.sender){
-                    uris.push(nftCollection[t][client]);
-                }
-            }
+        for (uint256 i = 0; i < points.length; i++){
+            uint256 t = points[i];
+            address client = msg.sender;
+            uris.push(nftCollection[t][client]);    
         }
     }
 
     // get array of nfts
-    function getUri() public view returns (string[] memory){
+    function getUriList() public view returns (string[] memory){
         return uris;
     }
     

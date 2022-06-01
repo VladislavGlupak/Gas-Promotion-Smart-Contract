@@ -65,7 +65,7 @@ with st.sidebar:
     if st.button("Check owner balance"):
         st.write(f"### Balance of the tokens: {total}")
 
-    st.markdown("### Mint tokens")
+    st.markdown("### Mint bonus points")
     number_of_tokens = int(st.number_input('', min_value=0, max_value=None, value=1000000, step=500)) # number of tokens to mint
     # define button for minting new tokens
     if st.button("Mint"):
@@ -78,14 +78,14 @@ with st.sidebar:
 # 3. Set rewards exchange rate
 ################################################################################
 
-    st.markdown("### Set rewards")
+    st.markdown("### Set exchange rate")
     # set rewards rate for gas types
     rate1 = int(st.number_input('Reg', min_value=0, max_value=10, value=1, step=1))
     rate2 = int(st.number_input('Mid', min_value=0, max_value=10, value=2, step=1))
     rate3 = int(st.number_input('Pre', min_value=0, max_value=10, value=3, step=1))
 
     # button - set rewards
-    if st.button("Set rewards rate"):
+    if st.button("Set rates"):
         contract.functions.setRate(rate1, rate2, rate3).transact({"from": address, "gas": 1000000})
         st.markdown("### Done!")
 
@@ -97,7 +97,7 @@ with st.sidebar:
         code = 1
     if rate_check_code == "Premium":
         code = 2
-    if st.button("Current rewards rate"):
+    if st.button("Current exchange rate"):
         check_rate_result = contract.functions.getRate(code).call()
         st.write(check_rate_result)
     st.markdown("---")
@@ -170,14 +170,14 @@ number = int(st.number_input('Insert a number of gallons', min_value=0, max_valu
 # retrive customer's balance
 if st.button("My balance"):
     balance = contract.functions.balances(address).call()
-    st.write(f"You balance is {balance} rewards")
+    st.write(f"You balance is {balance} bonus points")
 nft_price = contract.functions.nftPrice().call()
 # buy gas
 if st.button("Buy", key=1):
     contract.functions.buyGas(number, gas_code).transact({"from": address, "gas": 1000000})
     balance = contract.functions.balances(address).call()
-    st.markdown("#### Tokens have been minted!")
-    st.write(f"You have collected tokens: {balance}.")
+    st.markdown("#### Bonus points have been minted!")
+    st.write(f"You have collected points: {balance}.")
     # check if customer is allowed to get NFT
     if (balance >= nft_price):
         st.write(f"You can exchange them for NFT!")
@@ -188,13 +188,13 @@ st.markdown("---")
 # 3. Donate
 ################################################################################
 
-st.markdown("### Do you want to donate your tokens?")
+st.markdown("### Do you want to donate your bonus points?")
 st.image("./Pictures/donate.png")
 donate_amount = int(st.number_input('How much do you want to donate?', min_value=0, max_value=None, value=50, step=1))
 if st.button("Donate"):
     tx_hash_ = contract.functions.donate(donate_amount, address).transact({
         "from": owner, 
-        "value": w3.toWei((donate_amount/(10**18)), "ether"), # we send wei from owner(bank)
+        "value": w3.toWei((donate_amount/(10**5)), "ether"), # we send wei from owner(bank)
         "gas": 1000000})
     st.write("Done! Thank you!")
     receipt_ = w3.eth.waitForTransactionReceipt(tx_hash_)
@@ -243,12 +243,13 @@ st.markdown("---")
 
 st.markdown("### Check my NFT collection")
 if st.button("See my NFTs"):
-    contract.functions.getNftUri().transact({"from": address, "gas": 1000000})
+    contract.functions.createNftUriList().transact({"from": address, "gas": 1000000})
 
-    nft_list = contract.functions.getUri().call()
+    nft_list = contract.functions.getUriList().call()
     if (len(nft_list) == 0):
         st.write("You do not have NFT.")
     else:
         for link in nft_list:
-            st.write(link)
+            if (link != ""):
+                st.write(link)
 st.markdown("---")
