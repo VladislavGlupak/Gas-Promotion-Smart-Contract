@@ -246,8 +246,13 @@ if st.button("See my NFTs"):
     contract.functions.createNftUriList().transact({"from": address, "gas": 1000000})
 
     nft_list = contract.functions.getUriList().call()
-    if (len(nft_list) == 0):
-        st.write("You do not have NFT.")
+    count=0
+    for link in nft_list:
+        if (link == ""):
+            count+=1
+
+    if (count == len(nft_list)):
+        st.write("You do not have NFT!")
     else:
         for link in nft_list:
             if (link != ""):
