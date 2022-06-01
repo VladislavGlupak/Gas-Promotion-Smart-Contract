@@ -172,7 +172,9 @@ contract GasPromo is ERC721 {
         for (uint256 i = 0; i < points.length; i++){
             uint256 t = points[i];
             address client = msg.sender;
-            uris.push(nftCollection[t][client]);    
+                if ((keccak256(abi.encodePacked(nftCollection[t][client]))) != (keccak256(abi.encodePacked('')))) {
+                    uris.push(nftCollection[t][client]);
+                }    
         }
     }
 
