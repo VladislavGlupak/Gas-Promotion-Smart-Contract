@@ -116,7 +116,9 @@ run.sh                           - bash script for running app
 
 8. [Install](https://docs.streamlit.io/library/get-started/installation) Streamlit `pip install streamlit`.
 
-9. Run `./run.sh`
+9. Install `pip install randimage`
+
+10. Run `./run.sh`
 
 ---
 
