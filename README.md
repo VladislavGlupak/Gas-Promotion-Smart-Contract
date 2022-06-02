@@ -10,7 +10,7 @@
 
 # Gas-Promotion-Smart-Contract
 
-This repository represents the project is that gas station customers can join a promotion where they can earn tokens by buying gasoline. Tokens can be accumulated, or they can be exchanged for a special NFT art (**"Oil stains"**) or donated. NFT kepts in the IPFS network - Infura.
+This repository represents the project is that gas station customers can join a promotion where they can earn tokens by buying gasoline. Tokens can be accumulated, or they can be exchanged for a special NFT art (**"Oil stains"**) or donated. NFT kept in the IPFS network - Infura.
 The administrator manages the promotion.
 
 ---
@@ -84,7 +84,7 @@ run.sh                           - bash script for running app
 
 1. Download and install [Metamask](https://metamask.io) crypto wallet.
 
-2. Donload and install [Ganache](https://trufflesuite.com/ganache/).
+2. Download and install [Ganache](https://trufflesuite.com/ganache/).
 
 3. Configure the Ganache network in the Metamask.
    ```
@@ -140,7 +140,7 @@ Please install:
 
 Glupak Vladislav [Linkedin](https://www.linkedin.com/in/vladislav-glupak/)
 
-Magdalena Švimberská [Linkedin](https://www.linkedin.com/in/vladislav-glupak/)
+Magdalena Švimberská [Linkedin](https://www.linkedin.com/in/magdalena-svimberska-8203128a/)
 
 Thomas Brierton [Linkedin](https://www.linkedin.com/in/vladislav-glupak/)
 
