@@ -144,7 +144,7 @@ Magdalena Švimberská [Linkedin](https://www.linkedin.com/in/vladislav-glupak/)
 
 Thomas Brierton [Linkedin](https://www.linkedin.com/in/vladislav-glupak/)
 
-Siddharth Venkumahanti [Linkedin](https://www.linkedin.com/in/vladislav-glupak/)
+Siddharth Venkumahanti [Linkedin](https://www.linkedin.com/in/siddharthvenkumahanti/)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
