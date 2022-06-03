@@ -94,7 +94,7 @@ contract GasPromo is ERC721 {
     }
 
     // define function for changing exchange rate gas=>rewards
-    function setRate(uint256 rate_gas1, uint256 rate_gas2, uint256 rate_gas3) public {
+    function setRate(uint256 rate_gas1, uint256 rate_gas2, uint256 rate_gas3) public onlyOwner {
         rates[GasTypeRate.REGULAR] = rate_gas1;
         rates[GasTypeRate.MIDDLE] = rate_gas2;
         rates[GasTypeRate.PREMIUM] = rate_gas3;

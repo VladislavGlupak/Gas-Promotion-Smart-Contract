@@ -80,9 +80,9 @@ with st.sidebar:
 
     st.markdown("### Set exchange rate")
     # set rewards rate for gas types
-    rate1 = int(st.number_input('Reg', min_value=0, max_value=10, value=1, step=1))
-    rate2 = int(st.number_input('Mid', min_value=0, max_value=10, value=2, step=1))
-    rate3 = int(st.number_input('Pre', min_value=0, max_value=10, value=3, step=1))
+    rate1 = int(st.number_input('Regular', min_value=0, max_value=10, value=1, step=1))
+    rate2 = int(st.number_input('Middle', min_value=0, max_value=10, value=2, step=1))
+    rate3 = int(st.number_input('Premium', min_value=0, max_value=10, value=3, step=1))
 
     # button - set rewards
     if st.button("Set rates"):
