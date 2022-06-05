@@ -109,7 +109,7 @@ with st.sidebar:
 
     st.markdown("### Set NFT exchange rate")
     # define new rate for NFT
-    nft_rate = int(st.number_input('Reg', min_value=0, max_value=None, value=500, step=5))
+    nft_rate = int(st.number_input('Points:', min_value=0, max_value=None, value=500, step=5))
     # set new NFT price
     if st.button("Set NFT price"):
         contract.functions.setNftPrice(nft_rate).transact({"from": address, "gas": 1000000})
