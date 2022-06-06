@@ -41,7 +41,7 @@ contract GasPromo is ERC721 {
 
     // initialize default values for several variables when contracts deployed
     constructor() ERC721(fullTokenName, gasToken) public {
-        minGallons = 5;             // min number gallosfor buying
+        minGallons = 5;             // min number gallons for buying
         balances[owner] = 10000000; // initial token balance for minting
         stopPromo = false;          // promo is on
         nftPrice = 500;             // price of NFT in reward points
@@ -123,28 +123,29 @@ contract GasPromo is ERC721 {
     }
 
     // define function for minting additional points
-    function mint(uint value) public onlyOwner stopPromoFalse {
+    function mint(uint value) public onlyOwner {
         balances[owner] += value;
     }
 
     // contract owner is able to stop promotion (false => true)
     function stopPromotion(bool _stopPromo) public onlyOwner returns (bool){
         stopPromo = _stopPromo;
-
-        // reset client's balances
-        for (uint256 i = 0; i < clients.length; i++){
-            address client = clients[i];
-            balances[client] = 0;
+        if (stopPromo == true){
+            // reset client's balances
+            for (uint256 i = 0; i < clients.length; i++){
+                address client = clients[i];
+                balances[client] = 0;
+            }
+            balances[owner] = 0;
+            clients = new address[](0); // resetting clients array
         }
-        balances[owner] = 0;
-        clients = new address[](0); // resetting clients array
-
-        return stopPromo; // true
+        return stopPromo;
     }
 
     // minting NFT
     function mintNft(string memory tokenURI) public joinedPromo returns (uint256) {
         require(balances[msg.sender] >= nftPrice, "You balance is not enougth for generating NFT!");
+        require(msg.sender != owner, "Only clients can mint the NFT!");
 
         uint256 tokenId = totalSupply();
         address ownerNft = msg.sender;
