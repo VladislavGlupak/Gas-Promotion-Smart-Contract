@@ -124,7 +124,47 @@ run.sh                           - bash script for running app
 
 ## Demonstration of functionality
 
-TBD
+### 1 Switch account to contract owner
+
+![Account](Pictures/screenshots/accounts.JPG)
+
+### 2 Stop promotion
+
+![Stop](Pictures/screenshots/start_stop_promo.JPG)
+
+### 3 Mint bonus points
+
+![Mint](Pictures/screenshots/mint_tokens.JPG)
+
+### 4 Set exchange rates for gas types
+
+![SetRates](Pictures/screenshots/set_gas_ex.JPG)
+
+### 5 Set exchange rate for NFT
+
+![SetRates](Pictures/screenshots/nft_ex.JPG)
+
+### 6 Run promotion (refer to step 2)
+
+### 7 Switch account to any other account and join the promotion
+
+![Join](Pictures/screenshots/join.JPG)
+
+### 8 Buy no less than 5 gallons of any gas
+
+![Join](Pictures/screenshots/buy.JPG)
+
+### 9 Try to donate
+
+![Join](Pictures/screenshots/donate.JPG)
+
+### 10 Mint NFT (Pls, be aware that you should have enougth balance. Pls refer to step 5)
+
+![Join](Pictures/screenshots/donate.JPG)
+
+### 11 Check your NFT collection
+
+![Join](Pictures/screenshots/nft_collection.JPG)
 
 ---
 
