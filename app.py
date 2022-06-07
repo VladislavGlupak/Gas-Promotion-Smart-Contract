@@ -55,7 +55,7 @@ with st.sidebar:
 
 ################################################################################
 # Administrator panel
-# 2. Mint tokens
+# 2. Mint rewards
 ################################################################################
 
     st.markdown("# Admin panel")
@@ -63,11 +63,11 @@ with st.sidebar:
     total = contract.functions.balances(owner).call() # contract owner balance
     # define button for displaying the contract owner's balance
     if st.button("Check owner balance"):
-        st.write(f"### Balance of the tokens: {total}")
+        st.write(f"### Balance of the rewards: {total}")
 
-    st.markdown("### Mint bonus points")
-    number_of_tokens = int(st.number_input('', min_value=0, max_value=None, value=1000000, step=500)) # number of tokens to mint
-    # define button for minting new tokens
+    st.markdown("### Mint rewards")
+    number_of_tokens = int(st.number_input('', min_value=0, max_value=None, value=1000000, step=500)) # number of rewards to mint
+    # define button for minting new rewards
     if st.button("Mint"):
         contract.functions.mint(number_of_tokens).transact({"from": address, "gas": 1000000})
         st.markdown("### Done!")
@@ -109,7 +109,7 @@ with st.sidebar:
 
     st.markdown("### Set NFT exchange rate")
     # define new rate for NFT
-    nft_rate = int(st.number_input('Points:', min_value=0, max_value=None, value=500, step=5))
+    nft_rate = int(st.number_input('Rewards:', min_value=0, max_value=None, value=500, step=5))
     # set new NFT price
     if st.button("Set NFT price"):
         contract.functions.setNftPrice(nft_rate).transact({"from": address, "gas": 1000000})
@@ -170,14 +170,14 @@ number = int(st.number_input('Insert a number of gallons', min_value=0, max_valu
 # retrive customer's balance
 if st.button("My balance"):
     balance = contract.functions.balances(address).call()
-    st.write(f"You balance is {balance} bonus points")
+    st.write(f"You balance is {balance} rewards.")
 nft_price = contract.functions.nftPrice().call()
 # buy gas
 if st.button("Buy", key=1):
     contract.functions.buyGas(number, gas_code).transact({"from": address, "gas": 1000000})
     balance = contract.functions.balances(address).call()
-    st.markdown("#### Bonus points have been minted!")
-    st.write(f"You have collected points: {balance}.")
+    st.markdown("#### Rewards have been minted!")
+    st.write(f"You have collected rewards: {balance}.")
     # check if customer is allowed to get NFT
     if (balance >= nft_price):
         st.write(f"You can exchange them for NFT!")
@@ -188,7 +188,7 @@ st.markdown("---")
 # 3. Donate
 ################################################################################
 
-st.markdown("### Do you want to donate your bonus points?")
+st.markdown("### Do you want to donate your rewards?")
 st.image("./Pictures/donate.png")
 donate_amount = int(st.number_input('How much do you want to donate?', min_value=0, max_value=None, value=50, step=1))
 if st.button("Donate"):
@@ -233,7 +233,7 @@ if st.button("Start!"):
         #st.write(a["transactionHash"])
         os.remove(file)
     else:
-        st.write("You don't have enougth token balance!")
+        st.write("You don't have enougth rewards balance!")
 st.markdown("---")
 
 ################################################################################

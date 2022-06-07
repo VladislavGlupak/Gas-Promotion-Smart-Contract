@@ -60,7 +60,13 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v3.0
 
 ## App flows
 
-TBD
+Simple:
+
+![Simple Flows](Pictures/simple_flows.JPG)
+
+Detailed:
+
+![Flows](Pictures/flows.JPG)
 
 ---
 
