@@ -17,7 +17,7 @@ This project repository represents a pay-to-earn promotion where a gas station o
 # Table of Contents
 
 - [Technologies and tools](#technologies-and-tools)
-- [App flows -TBD](#app-flows)
+- [App flows](#app-flows)
 - [Project structure](#project-structure)
 - [Installation](#installation)
 - [Demonstration of functionality - TBD](#demonstration-of-functionality)
