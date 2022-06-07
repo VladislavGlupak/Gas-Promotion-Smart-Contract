@@ -10,8 +10,7 @@
 
 # Gas-Promotion-Smart-Contract
 
-The goal of this project is creating an app through which gas buyers can join a promotion of a specific gas station. After joining this promotion, customers earn points/tokens when buying gas. These points/tokens are stored in ITFS network Infura and can be exchanged for NFTs - “Oil stains” or donated.
-Gas station owner administrates the promotion, e.g. exchange rate, stopping the promotion etc.
+This project repository represents a pay-to-earn promotion where a gas station owner can offer their customers rewards through gasoline purchases. Rewards can be accumulated, exchanged for unique NFT art ("Oil stains”), or donated to a non-profit of their choice. The NFT’s are kept in the IPFS network - Infura. The administrator manages the promotion and the customer decides how to use their rewards.
 
 ---
 
@@ -190,7 +189,7 @@ Glupak Vladislav [Linkedin](https://www.linkedin.com/in/vladislav-glupak/)
 
 Magdalena Švimberská [Linkedin](https://www.linkedin.com/in/magdalena-svimberska-8203128a/)
 
-Thomas Brierton [Linkedin](https://www.linkedin.com/in/vladislav-glupak/)
+Thomas Brierton [Linkedin](https://www.linkedin.com/in/thomas-brierton-8961a6a1/)
 
 Siddharth Venkumahanti [Linkedin](https://www.linkedin.com/in/siddharthvenkumahanti/)
 
