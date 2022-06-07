@@ -20,7 +20,7 @@ This project repository represents a pay-to-earn promotion where a gas station o
 - [App flows](#app-flows)
 - [Project structure](#project-structure)
 - [Installation](#installation)
-- [Demonstration of functionality - TBD](#demonstration-of-functionality)
+- [Demonstration of functionality](#demonstration-of-functionality)
 - [Troubleshooting](#troubleshooting)
 - [Contributors](#contributors)
 - [License](#license)
