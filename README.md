@@ -165,7 +165,7 @@ run.sh                           - bash script for running app
 
 ### 10 Mint NFT (Pls, be aware that you should have enougth balance. Pls refer to step 5)
 
-![Join](Pictures/screenshots/donate.JPG)
+![Join](Pictures/screenshots/mint_nft.JPG)
 
 ### 11 Check your NFT collection
 
